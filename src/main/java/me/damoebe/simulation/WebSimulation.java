@@ -13,7 +13,7 @@ import java.util.function.Function;
 
 public class WebSimulation {
 
-    private static final String dataPath = "C:\\Users\\Schueler\\IdeaProjects\\Sorting\\src\\main\\java\\me\\damoebe\\simulation\\site\\data.js";
+    private static final String dataPath = System.getProperty("user.dir") + "\\src\\main\\java\\me\\damoebe\\simulation\\site\\data.js";
 
     public static void start(Function<Double[], SortData> function, int dataSize){
         clearData();
@@ -25,8 +25,8 @@ public class WebSimulation {
         Gson gson = new Gson();
         try {
             FileWriter writer = new FileWriter(dataPath);
-            writer.write("json = ");
-            writer.write(gson.toJson(function.apply(Main.getRandomArray(dataSize))));
+            writer.write("json = "); // format for JS
+            writer.write(gson.toJson(function.apply(Main.getRandomArray(dataSize)))); // write JSON String
             writer.close();
             Desktop.getDesktop().browse(new File(dataPath.replace("data.js", "index.html")).toURI());
         } catch (IOException e) {

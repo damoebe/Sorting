@@ -3,19 +3,15 @@ package me.damoebe;
 import me.damoebe.simulation.WebSimulation;
 
 import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static void main() {
+    public static void main(String[] args) {
         Double[] array = new Double[]{11.0, 7.0, 10.0, 2.0, 1.5, 5.5, 10.0};
         //List<List<Double>> steps = Sort.selectionSort(getRandomArray(50)).steps();
         //System.out.println(steps);
-        WebSimulation.start(Sort::selectionSort, 10);
+        WebSimulation.start(Sort::bubbleSort, 10);
     }
 
     static void test(){
