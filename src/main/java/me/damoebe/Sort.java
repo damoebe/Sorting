@@ -2,6 +2,7 @@ package me.damoebe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Sort {
     public static SortData selectionSort(Double[] array){
@@ -73,5 +74,30 @@ public class Sort {
         steps.add(new ArrayList<>(input));
         return new SortData((System.nanoTime() - currentTime) / 1000000.0,
                 steps, "Bubble Sort");
+    }
+    public static SortData thanosSort(Double[] array){
+        List<List<Double>> steps = new ArrayList<>();
+        long currentTime = System.nanoTime();
+        List<Double> input = new ArrayList<>(List.of(array));
+        steps.add(new ArrayList<>(input));
+        Random random = new Random();
+        int passes = 0;
+        while (true){
+            passes = 0;
+            for (int i = 0; i < input.size()-1; i++){
+                if (input.get(i) < input.get(i+1)){passes++;}
+            }
+            if  (passes >= input.size()-1){
+                break;
+            } else {
+                for (int i = 0; i < input.size()/2; i++){
+                    input.remove(random.nextInt(input.size()-1));
+                }
+                steps.add(new ArrayList<>(input));
+            }
+        }
+        steps.add(new ArrayList<>(input));
+        return new SortData((System.nanoTime() - currentTime) / 1000000.0,
+                steps, "Thanos Sort");
     }
 }

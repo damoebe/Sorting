@@ -2,7 +2,8 @@
 ## Example Sites
 **Selection Sort**: https://damoebe.github.io/Sorting/selection/ \
 **Bubble Sort**: https://damoebe.github.io/Sorting/bubble/ \
-**Insertion Sort**: https://damoebe.github.io/Sorting/insertion/ 
+**Insertion Sort**: https://damoebe.github.io/Sorting/insertion/ \
+**Thanos Sort** https://damoebe.github.io/Sorting/thanos/ 
 ## Customisation of displayed data via Java
 To generate data.js files, git clone this repo and run the java code (/src/main/java/me/damoebe/simulation/WebSimulation.java) from a seperate class like Main. 
 For example like this:

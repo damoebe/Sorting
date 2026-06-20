@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Sort Algorithm Simulation</title>
+</head>
+<body>
+    <div id = "h">
+        <header>Sorting Visualisation</header>
+        <p>made by damoebe</p>
+    </div>
+    <div id = "button-container">
+        <button id="start-button" onclick="doSteps(steps);
+        document.getElementById('start-button').style.visibility = 'hidden';
+        document.getElementById('loader').style.visibility= 'visible';">Start</button>
+        <div id="loader"></div>
+    </div>
+    <div id = "stats"></div>
+    <div id="box"></div>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

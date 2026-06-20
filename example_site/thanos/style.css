@@ -70,7 +70,7 @@ p{
     margin-right: auto;
 }
 ::view-transition-group(*) {
-  animation-duration: 0.3s;
+  animation-duration: 3s;
 }
 #box div{
     border-radius: 10px;

@@ -1,0 +1,399 @@
+Index: src/main/java/me/damoebe/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package me.damoebe;\r\n\r\nimport me.damoebe.simulation.WebSimulation;\r\n\r\nimport java.awt.*;\r\nimport java.util.Random;\r\nimport java.util.function.Function;\r\n\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        Double[] array = new Double[]{11.0, 7.0, 10.0, 2.0, 1.5, 5.5, 10.0};\r\n        //List<List<Double>> steps = Sort.selectionSort(getRandomArray(50)).steps();\r\n        //System.out.println(steps);\r\n        WebSimulation.start(Sort::insertionSort, 20);\r\n    }\r\n\r\n    static void test(){\r\n\r\n        Function<Double[], SortData> function = Sort::selectionSort;\r\n        double average = 0;\r\n        for (int i = 0; i < 10000; i++){\r\n            double value = function.apply(getRandomArray(1000)).time();\r\n            System.out.println(value);\r\n            average += value;\r\n        }\r\n        average /= 10000;\r\n        System.out.println(average);\r\n    }\r\n\r\n    public static Double[] getRandomArray(int size){\r\n        Double[] doubles = new Double[size];\r\n        Random random = new Random();\r\n        for (int i = 0; i < size; i++){\r\n            doubles[i] = random.nextDouble(50);\r\n        }\r\n        return doubles;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/me/damoebe/Main.java b/src/main/java/me/damoebe/Main.java
+--- a/src/main/java/me/damoebe/Main.java	(revision 49a8c02a5dc70d8713e9fac11d9acca3c7b8d50e)
++++ b/src/main/java/me/damoebe/Main.java	(date 1781995669794)
+@@ -11,7 +11,7 @@
+         Double[] array = new Double[]{11.0, 7.0, 10.0, 2.0, 1.5, 5.5, 10.0};
+         //List<List<Double>> steps = Sort.selectionSort(getRandomArray(50)).steps();
+         //System.out.println(steps);
+-        WebSimulation.start(Sort::insertionSort, 20);
++        WebSimulation.start(Sort::thanosSort, 20);
+     }
+ 
+     static void test(){
+Index: src/main/java/me/damoebe/Sort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package me.damoebe;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class Sort {\r\n    public static SortData selectionSort(Double[] array){\r\n        List<List<Double>> steps = new ArrayList<>();\r\n        long currentTime = System.nanoTime();\r\n        List<Double> input = new ArrayList<>(List.of(array));\r\n        steps.add(new ArrayList<>(input));\r\n        List<Double> sorted = new ArrayList<>();\r\n        for (int i = 0; i < array.length; i++){\r\n            double lowest = Double.MAX_VALUE;\r\n            for (double num : input){\r\n                if (num < lowest) lowest = num;\r\n            }\r\n            sorted.add(lowest);\r\n            input.remove(lowest);\r\n            List<Double> step = new ArrayList<>(sorted);\r\n            step.addAll(input);\r\n            steps.add(step);\r\n        }\r\n        steps.add(new ArrayList<>(sorted));\r\n        return new SortData((System.nanoTime() - currentTime) / 1000000.0,\r\n                steps, \"Selection Sort\");\r\n    }\r\n    public static SortData insertionSort(Double[] array){\r\n        List<List<Double>> steps = new ArrayList<>();\r\n        long currentTime = System.nanoTime();\r\n        List<Double> sorted = new ArrayList<>();\r\n        List<Double> input = new ArrayList<>(List.of(array));\r\n        List<Double> displayInput = new ArrayList<>(List.of(array));\r\n        steps.add(new ArrayList<>(input));\r\n        sorted.add(array[0]);\r\n        input.removeFirst();\r\n        for (Double num : input) {\r\n            boolean added = false;\r\n            for (Double sortedNum : sorted) {\r\n                if (num <= sortedNum) {\r\n                    sorted.add(sorted.indexOf(sortedNum), num);\r\n                    displayInput.remove(num);\r\n                    added = true;\r\n                    break;\r\n                }\r\n            }\r\n            if (!added){sorted.add(num); displayInput.remove(num);}\r\n            List<Double> step = new ArrayList<>(sorted);\r\n            step.addAll(displayInput);\r\n            steps.add(step);\r\n        }\r\n        steps.add(sorted);\r\n        return new SortData((System.nanoTime() - currentTime) / 1000000.0,\r\n                steps, \"Insertion Sort\");\r\n    }\r\n    public static SortData bubbleSort(Double[] array){\r\n        List<List<Double>> steps = new ArrayList<>();\r\n        long currentTime = System.nanoTime();\r\n        List<Double> input = new ArrayList<>(List.of(array));\r\n        steps.add(new ArrayList<>(input));\r\n        int passes = 0;\r\n        while (passes < input.size()-1){\r\n            passes = 0;\r\n            for (int i = 0; i < input.size()-1; i++){\r\n                double element = input.get(i);\r\n                if (element > input.get(i+1)){\r\n                    input.set(i, input.get(i+1));\r\n                    input.set(i+1, element);\r\n                }else { passes++;}\r\n                steps.add(new ArrayList<>(input));\r\n            }\r\n        }\r\n        steps.add(new ArrayList<>(input));\r\n        return new SortData((System.nanoTime() - currentTime) / 1000000.0,\r\n                steps, \"Bubble Sort\");\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/me/damoebe/Sort.java b/src/main/java/me/damoebe/Sort.java
+--- a/src/main/java/me/damoebe/Sort.java	(revision 49a8c02a5dc70d8713e9fac11d9acca3c7b8d50e)
++++ b/src/main/java/me/damoebe/Sort.java	(date 1781995669798)
+@@ -2,6 +2,7 @@
+ 
+ import java.util.ArrayList;
+ import java.util.List;
++import java.util.Random;
+ 
+ public class Sort {
+     public static SortData selectionSort(Double[] array){
+@@ -74,4 +75,29 @@
+         return new SortData((System.nanoTime() - currentTime) / 1000000.0,
+                 steps, "Bubble Sort");
+     }
++    public static SortData thanosSort(Double[] array){
++        List<List<Double>> steps = new ArrayList<>();
++        long currentTime = System.nanoTime();
++        List<Double> input = new ArrayList<>(List.of(array));
++        steps.add(new ArrayList<>(input));
++        Random random = new Random();
++        int passes = 0;
++        while (true){
++            passes = 0;
++            for (int i = 0; i < input.size()-1; i++){
++                if (input.get(i) < input.get(i+1)){passes++;}
++            }
++            if  (passes >= input.size()-1){
++                break;
++            } else {
++                for (int i = 0; i < input.size()/2; i++){
++                    input.remove(random.nextInt(input.size()-1));
++                }
++                steps.add(new ArrayList<>(input));
++            }
++        }
++        steps.add(new ArrayList<>(input));
++        return new SortData((System.nanoTime() - currentTime) / 1000000.0,
++                steps, "Thanos Sort");
++    }
+ }
+Index: src/main/java/me/damoebe/simulation/site/style.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>html{\r\n    background-color: #533370;\r\n    font-family: \"Bauhaus 93\", serif;\r\n}\r\n#h{\r\n    color: #ffffff;\r\n    width: 30%;\r\n    height: 6vh;\r\n    float: left;\r\n\r\n}\r\n#button-container{\r\n    float:left;\r\n    width: 40%;\r\n    height: 6vh;\r\n    text-align: center;\r\n}\r\n#start-button{\r\n    margin-top: 0.5vh;\r\n    color: white;\r\n    width: 15%;\r\n    border-radius: 10px;\r\n    border-color: white;\r\n    border-style: solid;\r\n    background: none;\r\n    font-size: 1vw;\r\n    height: 2vw;\r\n    font-family: Bahnschrift, serif;\r\n    transition: transform 0.2s ease-in-out;\r\n}\r\n#loader {\r\n    visibility: hidden;\r\n    width: 3vh;\r\n    margin-left: 45%;\r\n    margin-top: -5vh;\r\n    aspect-ratio: 1;\r\n    border-radius: 50%;\r\n    border: 8px solid;\r\n    border-color: #ffffff #0000;\r\n    animation: l1 1s infinite;\r\n}\r\n@keyframes l1 {to{transform: rotate(.5turn)}}\r\n#start-button:hover{\r\n    cursor: pointer;\r\n    transform: scaleX(1.2);\r\n}\r\n#stats{\r\n    float: left;\r\n    width: 30%;\r\n    height: 6vh;\r\n    color: white;\r\n    font-size: 2vw;\r\n    text-align: right;\r\n}\r\nheader{\r\n    width: 100%;\r\n    font-size: 2vw;\r\n}\r\np{\r\n    margin: 0;\r\n    font-size: 0.7vw;\r\n}\r\n#box{\r\n    display: flex;\r\n    height: 90vh;\r\n    width: 70%;\r\n    background-color: #270f34;\r\n    border-radius: 10px;\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n}\r\n::view-transition-group(*) {\r\n  animation-duration: 0.2s;\r\n}\r\n#box div{\r\n    border-radius: 10px;\r\n    margin-left: 0.5%;\r\n    margin-right: 0.5%;\r\n    transition: height 0.1s;\r\n}\r\n#box div:hover{\r\n    cursor: pointer;\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/me/damoebe/simulation/site/style.css b/src/main/java/me/damoebe/simulation/site/style.css
+--- a/src/main/java/me/damoebe/simulation/site/style.css	(revision 49a8c02a5dc70d8713e9fac11d9acca3c7b8d50e)
++++ b/src/main/java/me/damoebe/simulation/site/style.css	(date 1781995919874)
+@@ -70,7 +70,7 @@
+     margin-right: auto;
+ }
+ ::view-transition-group(*) {
+-  animation-duration: 0.2s;
++  animation-duration: 0.3s;
+ }
+ #box div{
+     border-radius: 10px;
+Index: src/main/java/me/damoebe/simulation/site/data.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>json = {\"time\":0.1157,\"steps\":[[1.8559725923019743,12.20051980793156,34.934397081467125,11.380210534344776,23.860751706566862,12.66586316743506,31.244217871099067,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,12.20051980793156,1.8559725923019743,34.934397081467125,11.380210534344776,23.860751706566862,12.66586316743506,31.244217871099067,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,12.20051980793156,34.934397081467125,1.8559725923019743,11.380210534344776,23.860751706566862,12.66586316743506,31.244217871099067,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,34.934397081467125,1.8559725923019743,23.860751706566862,12.66586316743506,31.244217871099067,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,23.860751706566862,34.934397081467125,1.8559725923019743,12.66586316743506,31.244217871099067,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,23.860751706566862,34.934397081467125,1.8559725923019743,31.244217871099067,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,23.860751706566862,31.244217871099067,34.934397081467125,1.8559725923019743,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,23.860751706566862,29.263661790031804,31.244217871099067,34.934397081467125,1.8559725923019743,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,1.8559725923019743,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,1.8559725923019743,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,40.10722368310227,1.8559725923019743,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,40.10722368310227,1.8559725923019743,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,40.10722368310227,1.8559725923019743,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,36.854004419872865,40.10722368310227,1.8559725923019743,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227,1.8559725923019743,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,29.263661790031804,31.244217871099067,31.44088992438815,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227,1.8559725923019743,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,24.678081673143993,29.263661790031804,31.244217871099067,31.44088992438815,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227,1.8559725923019743,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,24.678081673143993,25.85815900304184,29.263661790031804,31.244217871099067,31.44088992438815,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227,1.8559725923019743,2.5247028773228655,16.04531669251154],[1.8559725923019743,2.5247028773228655,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,24.678081673143993,25.85815900304184,29.263661790031804,31.244217871099067,31.44088992438815,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227,1.8559725923019743,16.04531669251154],[1.8559725923019743,2.5247028773228655,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,16.04531669251154,17.97722028312862,19.718664208067437,23.860751706566862,24.678081673143993,25.85815900304184,29.263661790031804,31.244217871099067,31.44088992438815,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227,1.8559725923019743],[1.8559725923019743,2.5247028773228655,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,16.04531669251154,17.97722028312862,19.718664208067437,23.860751706566862,24.678081673143993,25.85815900304184,29.263661790031804,31.244217871099067,31.44088992438815,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227]],\"algoName\":\"Insertion Sort\"}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/me/damoebe/simulation/site/data.js b/src/main/java/me/damoebe/simulation/site/data.js
+--- a/src/main/java/me/damoebe/simulation/site/data.js	(revision 49a8c02a5dc70d8713e9fac11d9acca3c7b8d50e)
++++ b/src/main/java/me/damoebe/simulation/site/data.js	(date 1781995766494)
+@@ -1,1 +1,1 @@
+-json = {"time":0.1157,"steps":[[1.8559725923019743,12.20051980793156,34.934397081467125,11.380210534344776,23.860751706566862,12.66586316743506,31.244217871099067,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,12.20051980793156,1.8559725923019743,34.934397081467125,11.380210534344776,23.860751706566862,12.66586316743506,31.244217871099067,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,12.20051980793156,34.934397081467125,1.8559725923019743,11.380210534344776,23.860751706566862,12.66586316743506,31.244217871099067,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,34.934397081467125,1.8559725923019743,23.860751706566862,12.66586316743506,31.244217871099067,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,23.860751706566862,34.934397081467125,1.8559725923019743,12.66586316743506,31.244217871099067,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,23.860751706566862,34.934397081467125,1.8559725923019743,31.244217871099067,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,23.860751706566862,31.244217871099067,34.934397081467125,1.8559725923019743,29.263661790031804,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,23.860751706566862,29.263661790031804,31.244217871099067,34.934397081467125,1.8559725923019743,32.41469796507197,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,1.8559725923019743,17.97722028312862,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,1.8559725923019743,40.10722368310227,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,40.10722368310227,1.8559725923019743,19.718664208067437,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,40.10722368310227,1.8559725923019743,3.5205385343530238,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,40.10722368310227,1.8559725923019743,36.854004419872865,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,36.854004419872865,40.10722368310227,1.8559725923019743,37.92584570458162,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,29.263661790031804,31.244217871099067,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227,1.8559725923019743,31.44088992438815,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,29.263661790031804,31.244217871099067,31.44088992438815,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227,1.8559725923019743,24.678081673143993,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,24.678081673143993,29.263661790031804,31.244217871099067,31.44088992438815,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227,1.8559725923019743,25.85815900304184,2.5247028773228655,16.04531669251154],[1.8559725923019743,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,24.678081673143993,25.85815900304184,29.263661790031804,31.244217871099067,31.44088992438815,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227,1.8559725923019743,2.5247028773228655,16.04531669251154],[1.8559725923019743,2.5247028773228655,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,17.97722028312862,19.718664208067437,23.860751706566862,24.678081673143993,25.85815900304184,29.263661790031804,31.244217871099067,31.44088992438815,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227,1.8559725923019743,16.04531669251154],[1.8559725923019743,2.5247028773228655,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,16.04531669251154,17.97722028312862,19.718664208067437,23.860751706566862,24.678081673143993,25.85815900304184,29.263661790031804,31.244217871099067,31.44088992438815,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227,1.8559725923019743],[1.8559725923019743,2.5247028773228655,3.5205385343530238,11.380210534344776,12.20051980793156,12.66586316743506,16.04531669251154,17.97722028312862,19.718664208067437,23.860751706566862,24.678081673143993,25.85815900304184,29.263661790031804,31.244217871099067,31.44088992438815,32.41469796507197,34.934397081467125,36.854004419872865,37.92584570458162,40.10722368310227]],"algoName":"Insertion Sort"}
+\ No newline at end of file
++json = {"time":0.046,"steps":[[28.298057298360813,21.248406873632476,41.98715482728726,15.542462379240913,1.8473898212574724,27.162611663813287,11.497413597997014,45.82273606585815,7.332957116913969,49.47130798953858,36.728154915779996,3.3057273767919115,41.6929624422993,3.955929983448309,10.80882319427568,14.901919492200022,36.801085346514576,28.492183617265542,7.612807962299895,38.8787622852348],[28.298057298360813,41.98715482728726,1.8473898212574724,27.162611663813287,11.497413597997014,45.82273606585815,49.47130798953858,36.728154915779996,41.6929624422993,3.955929983448309,14.901919492200022,7.612807962299895,38.8787622852348],[28.298057298360813,41.98715482728726,1.8473898212574724,11.497413597997014,45.82273606585815,36.728154915779996,41.6929624422993,14.901919492200022,38.8787622852348],[28.298057298360813,41.98715482728726,1.8473898212574724,11.497413597997014,45.82273606585815,38.8787622852348],[1.8473898212574724,11.497413597997014,45.82273606585815,38.8787622852348],[1.8473898212574724,11.497413597997014,38.8787622852348],[1.8473898212574724,11.497413597997014,38.8787622852348]],"algoName":"Thanos Sort"}
+\ No newline at end of file
+Index: example_site/thanos/data.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/example_site/thanos/data.js b/example_site/thanos/data.js
+new file mode 100644
+--- /dev/null	(date 1781995766494)
++++ b/example_site/thanos/data.js	(date 1781995766494)
+@@ -0,0 +1,1 @@
++json = {"time":0.046,"steps":[[28.298057298360813,21.248406873632476,41.98715482728726,15.542462379240913,1.8473898212574724,27.162611663813287,11.497413597997014,45.82273606585815,7.332957116913969,49.47130798953858,36.728154915779996,3.3057273767919115,41.6929624422993,3.955929983448309,10.80882319427568,14.901919492200022,36.801085346514576,28.492183617265542,7.612807962299895,38.8787622852348],[28.298057298360813,41.98715482728726,1.8473898212574724,27.162611663813287,11.497413597997014,45.82273606585815,49.47130798953858,36.728154915779996,41.6929624422993,3.955929983448309,14.901919492200022,7.612807962299895,38.8787622852348],[28.298057298360813,41.98715482728726,1.8473898212574724,11.497413597997014,45.82273606585815,36.728154915779996,41.6929624422993,14.901919492200022,38.8787622852348],[28.298057298360813,41.98715482728726,1.8473898212574724,11.497413597997014,45.82273606585815,38.8787622852348],[1.8473898212574724,11.497413597997014,45.82273606585815,38.8787622852348],[1.8473898212574724,11.497413597997014,38.8787622852348],[1.8473898212574724,11.497413597997014,38.8787622852348]],"algoName":"Thanos Sort"}
+\ No newline at end of file
+Index: example_site/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>Nothing</title>\r\n</head>\r\n<body>\r\n    <a href=\"./bubble/index.html\"></a>\r\n    <a href=\"./insertion/index.html\"></a>\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/example_site/index.html b/example_site/index.html
+--- a/example_site/index.html	(revision 49a8c02a5dc70d8713e9fac11d9acca3c7b8d50e)
++++ b/example_site/index.html	(date 1781995919868)
+@@ -5,7 +5,7 @@
+     <title>Nothing</title>
+ </head>
+ <body>
+-    <a href="./bubble/index.html"></a>
+-    <a href="./insertion/index.html"></a>
++    <a href="./bubble/index.html">bubble</a>
++    <a href="./insertion/index.html">insertion</a>
+ </body>
+ </html>
+\ No newline at end of file
+Index: example_site/thanos/style.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/example_site/thanos/style.css b/example_site/thanos/style.css
+new file mode 100644
+--- /dev/null	(date 1781995811269)
++++ b/example_site/thanos/style.css	(date 1781995811269)
+@@ -0,0 +1,85 @@
++html{
++    background-color: #533370;
++    font-family: "Bauhaus 93", serif;
++}
++#h{
++    color: #ffffff;
++    width: 30%;
++    height: 6vh;
++    float: left;
++
++}
++#button-container{
++    float:left;
++    width: 40%;
++    height: 6vh;
++    text-align: center;
++}
++#start-button{
++    margin-top: 0.5vh;
++    color: white;
++    width: 15%;
++    border-radius: 10px;
++    border-color: white;
++    border-style: solid;
++    background: none;
++    font-size: 1vw;
++    height: 2vw;
++    font-family: Bahnschrift, serif;
++    transition: transform 0.2s ease-in-out;
++}
++#loader {
++    visibility: hidden;
++    width: 3vh;
++    margin-left: 45%;
++    margin-top: -5vh;
++    aspect-ratio: 1;
++    border-radius: 50%;
++    border: 8px solid;
++    border-color: #ffffff #0000;
++    animation: l1 1s infinite;
++}
++@keyframes l1 {to{transform: rotate(.5turn)}}
++#start-button:hover{
++    cursor: pointer;
++    transform: scaleX(1.2);
++}
++#stats{
++    float: left;
++    width: 30%;
++    height: 6vh;
++    color: white;
++    font-size: 2vw;
++    text-align: right;
++}
++header{
++    width: 100%;
++    font-size: 2vw;
++}
++p{
++    margin: 0;
++    font-size: 0.7vw;
++}
++#box{
++    display: flex;
++    height: 90vh;
++    width: 70%;
++    background-color: #270f34;
++    border-radius: 10px;
++    margin-left: auto;
++    margin-right: auto;
++}
++::view-transition-group(*) {
++  animation-duration: 3s;
++}
++#box div{
++    border-radius: 10px;
++    margin-left: 0.5%;
++    margin-right: 0.5%;
++    transition: height 0.1s;
++}
++#box div:hover{
++    cursor: pointer;
++
++}
++
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"d64fe10f-ec72-49f5-8282-e872c613a27a\" name=\"Changes\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"HTML File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;damoebe&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/damoebe/Sorting.git&quot;,\r\n    &quot;accountId&quot;: &quot;b5f6a51f-71e0-4b68-a7c8-53d9d67b1733&quot;\r\n  }\r\n}</component>\r\n  <component name=\"McpProjectServerCommands\">\r\n    <commands />\r\n    <urls />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 0\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"3FGt0hkcnkBXOVx9mQPHLd7xRG6\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.Main.executor\": \"Run\",\r\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\r\n    \"Node.js.script.js.executor\": \"Run\",\r\n    \"RunOnceActivity.MCP Project settings loaded\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"RunOnceActivity.typescript.service.memoryLimit.init\": \"true\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/marti/Documents/GitHub/Sorting/example_site/insertion\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"project.structure.last.edited\": \"Project\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.0\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\marti\\Documents\\GitHub\\Sorting\\example_site\\insertion\" />\r\n      <recent name=\"C:\\Users\\marti\\Documents\\GitHub\\Sorting\\example_site\\bubble\" />\r\n      <recent name=\"C:\\Users\\marti\\Documents\\GitHub\\Sorting\\example_site\\selection\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <module name=\"Sorting\" />\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.33813.25\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.33813.25\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"d64fe10f-ec72-49f5-8282-e872c613a27a\" name=\"Changes\" comment=\"\" />\r\n      <created>1781713012244</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1781713012244</updated>\r\n      <workItem from=\"1781713861839\" duration=\"6053000\" />\r\n      <workItem from=\"1781725210071\" duration=\"231000\" />\r\n      <workItem from=\"1781725445408\" duration=\"6627000\" />\r\n      <workItem from=\"1781772396871\" duration=\"6608000\" />\r\n      <workItem from=\"1781812621574\" duration=\"2580000\" />\r\n      <workItem from=\"1781873204577\" duration=\"599000\" />\r\n      <workItem from=\"1781977916792\" duration=\"8261000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <breakpoint enabled=\"true\" type=\"java-exception\">\r\n          <properties class=\"java.lang.ClassNotFoundException\" package=\"java.lang\" />\r\n          <option name=\"timeStamp\" value=\"1\" />\r\n        </breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 49a8c02a5dc70d8713e9fac11d9acca3c7b8d50e)
++++ b/.idea/workspace.xml	(date 1781995962637)
+@@ -4,7 +4,19 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="d64fe10f-ec72-49f5-8282-e872c613a27a" name="Changes" comment="" />
++    <list default="true" id="d64fe10f-ec72-49f5-8282-e872c613a27a" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/example_site/thanos/data.js" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/example_site/thanos/index.html" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/example_site/thanos/script.js" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/example_site/thanos/style.css" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/example_site/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/example_site/index.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/Main.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/Sort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/Sort.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/data.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/data.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/script.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/style.css" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -46,6 +58,7 @@
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
+     "Application.Main.executor": "Run",
++    "DefaultHtmlFileTemplate": "HTML File",
+     "ModuleVcsDetector.initialDetectionPerformed": "true",
+     "Node.js.script.js.executor": "Run",
+     "RunOnceActivity.MCP Project settings loaded": "true",
+@@ -54,7 +67,7 @@
+     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+     "git-widget-placeholder": "master",
+     "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "C:/Users/marti/Documents/GitHub/Sorting/example_site/insertion",
++    "last_opened_file_path": "C:/Users/marti/Documents/GitHub/Sorting/example_site/thanos",
+     "node.js.detected.package.eslint": "true",
+     "node.js.detected.package.tslint": "true",
+     "node.js.selected.package.eslint": "(autodetect)",
+@@ -104,7 +117,8 @@
+       <workItem from="1781772396871" duration="6608000" />
+       <workItem from="1781812621574" duration="2580000" />
+       <workItem from="1781873204577" duration="599000" />
+-      <workItem from="1781977916792" duration="8261000" />
++      <workItem from="1781977916792" duration="10393000" />
++      <workItem from="1781993438686" duration="2506000" />
+     </task>
+     <servers />
+   </component>
+Index: example_site/thanos/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/example_site/thanos/index.html b/example_site/thanos/index.html
+new file mode 100644
+--- /dev/null	(date 1781989681347)
++++ b/example_site/thanos/index.html	(date 1781989681347)
+@@ -0,0 +1,24 @@
++<!DOCTYPE html>
++<html lang="en">
++<link rel="stylesheet" href="style.css">
++<head>
++    <meta charset="UTF-8">
++    <title>Sort Algorithm Simulation</title>
++</head>
++<body>
++    <div id = "h">
++        <header>Sorting Visualisation</header>
++        <p>made by damoebe</p>
++    </div>
++    <div id = "button-container">
++        <button id="start-button" onclick="doSteps(steps);
++        document.getElementById('start-button').style.visibility = 'hidden';
++        document.getElementById('loader').style.visibility= 'visible';">Start</button>
++        <div id="loader"></div>
++    </div>
++    <div id = "stats"></div>
++    <div id="box"></div>
++    <script src="data.js"></script>
++    <script src="script.js"></script>
++</body>
++</html>
+\ No newline at end of file
+Index: example_site/thanos/script.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/example_site/thanos/script.js b/example_site/thanos/script.js
+new file mode 100644
+--- /dev/null	(date 1781994536214)
++++ b/example_site/thanos/script.js	(date 1781994536214)
+@@ -0,0 +1,49 @@
++let steps = json.steps;
++console.log(steps)
++
++document.getElementById("stats").innerHTML = json.algoName;
++
++function initilize(){
++    document.getElementById("box").children = [];
++    let i= 0;
++    let max = Math.max(...steps[0])
++    for (let e of steps[0]){
++        let element = document.createElement("div");
++        // element styling
++        element.id = i.toString();
++        element.title = "value~ " + Math.round(e).toString() + " original index: " + i.toString();
++        element.style.viewTransitionName = "item-" + i.toString();
++        element.style.height = ((e/max)*80).toString() + "vh";
++        element.style.width = ((1/steps[0].length) * 100 -1).toString() +"%";
++        element.style.float = "left";
++        element.style.marginTop = "auto";
++        element.style.display = "inline";
++        element.style.backgroundColor = "rgb(" +((1/(e/max))*255).toString()  + ", " + ((e/max)*255).toString() + ", 100)";
++        document.getElementById("box").appendChild(element);
++        i++;
++    }
++}
++async function doSteps(steps){
++    initilize();
++    const box = document.getElementById("box");
++    for (let step_index = 1; step_index < steps.length; step_index++) {
++        let new_elements = [];
++        for (let e_index = 0; e_index < steps[step_index].length; e_index++) {
++            let index = steps[0].indexOf(steps[step_index][e_index]).toString();
++            const element = document.getElementById(index);
++            new_elements.push(element);
++        }
++
++        const transition = document.startViewTransition(() => {
++            box.replaceChildren(...new_elements);
++        });
++        await transition.finished;
++    }
++    document.getElementById("loader").style.visibility = "hidden";
++    document.getElementById("start-button").style.visibility = "visible";
++}
++initilize();
++
++
++
++
+Index: src/main/java/me/damoebe/simulation/site/script.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>let steps = json.steps;\r\nconsole.log(steps)\r\n\r\ndocument.getElementById(\"stats\").innerHTML = json.algoName;\r\n\r\nfunction initilize(){\r\n    document.getElementById(\"box\").children = [];\r\n    let i= 0;\r\n    let max = Math.max(...steps[0])\r\n    for (let e of steps[0]){\r\n        let element = document.createElement(\"div\");\r\n        // element styling\r\n        element.id = i.toString();\r\n        element.title = \"value~ \" + Math.round(e).toString() + \" original index: \" + i.toString();\r\n        element.style.viewTransitionName = \"item-\" + i.toString();\r\n        element.style.height = ((e/max)*80).toString() + \"vh\";\r\n        element.style.width = ((1/steps[0].length) * 100 -1).toString() +\"%\";\r\n        element.style.float = \"left\";\r\n        element.style.marginTop = \"auto\";\r\n        element.style.display = \"inline\";\r\n        element.style.backgroundColor = \"rgb(\" +((1/(e/max))*255).toString()  + \", \" + ((e/max)*255).toString() + \", 100)\";\r\n        document.getElementById(\"box\").appendChild(element);\r\n        i++;\r\n    }\r\n}\r\nasync function doSteps(steps){\r\n    const box = document.getElementById(\"box\");\r\n    for (let step_index = 1; step_index < steps.length; step_index++) {\r\n        let new_elements = [];\r\n        for (let e_index = 0; e_index < steps[step_index].length; e_index++) {\r\n            let index = steps[0].indexOf(steps[step_index][e_index]).toString();\r\n            const element = document.getElementById(index);\r\n            new_elements.push(element);\r\n        }\r\n\r\n        const transition = document.startViewTransition(() => {\r\n            box.replaceChildren(...new_elements);\r\n        });\r\n        await transition.finished;\r\n    }\r\n    document.getElementById(\"loader\").style.visibility = \"hidden\";\r\n    document.getElementById(\"start-button\").style.visibility = \"visible\";\r\n}\r\ninitilize();\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/me/damoebe/simulation/site/script.js b/src/main/java/me/damoebe/simulation/site/script.js
+--- a/src/main/java/me/damoebe/simulation/site/script.js	(revision 49a8c02a5dc70d8713e9fac11d9acca3c7b8d50e)
++++ b/src/main/java/me/damoebe/simulation/site/script.js	(date 1781994536214)
+@@ -24,6 +24,7 @@
+     }
+ }
+ async function doSteps(steps){
++    initilize();
+     const box = document.getElementById("box");
+     for (let step_index = 1; step_index < steps.length; step_index++) {
+         let new_elements = [];

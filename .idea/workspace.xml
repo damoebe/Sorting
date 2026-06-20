@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d64fe10f-ec72-49f5-8282-e872c613a27a" name="Changes" comment="" />
+    <list default="true" id="d64fe10f-ec72-49f5-8282-e872c613a27a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/example_site/thanos/data.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example_site/thanos/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example_site/thanos/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example_site/thanos/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example_site/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/example_site/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/Sort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/Sort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/data.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/data.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/style.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +58,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Node.js.script.js.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
@@ -54,7 +67,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/marti/Documents/GitHub/Sorting/example_site/insertion",
+    "last_opened_file_path": "C:/Users/marti/Documents/GitHub/Sorting/example_site/thanos",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -104,7 +117,8 @@
       <workItem from="1781772396871" duration="6608000" />
       <workItem from="1781812621574" duration="2580000" />
       <workItem from="1781873204577" duration="599000" />
-      <workItem from="1781977916792" duration="8261000" />
+      <workItem from="1781977916792" duration="10393000" />
+      <workItem from="1781993438686" duration="2506000" />
     </task>
     <servers />
   </component>
