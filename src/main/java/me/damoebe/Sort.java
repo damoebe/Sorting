@@ -23,7 +23,7 @@ public class Sort {
         }
         steps.add(new ArrayList<>(sorted));
         return new SortData((System.nanoTime() - currentTime) / 1000000.0,
-                steps);
+                steps, "Selection Sort");
     }
     public static SortData insertionSort(Double[] array){
         List<List<Double>> steps = new ArrayList<>();
@@ -51,7 +51,7 @@ public class Sort {
         }
         steps.add(sorted);
         return new SortData((System.nanoTime() - currentTime) / 1000000.0,
-                steps);
+                steps, "Insertion Sort");
     }
     public static SortData bubbleSort(Double[] array){
         List<List<Double>> steps = new ArrayList<>();
@@ -72,6 +72,6 @@ public class Sort {
         }
         steps.add(new ArrayList<>(input));
         return new SortData((System.nanoTime() - currentTime) / 1000000.0,
-                steps);
+                steps, "Bubble Sort");
     }
 }

@@ -11,7 +11,7 @@ public class Main {
         Double[] array = new Double[]{11.0, 7.0, 10.0, 2.0, 1.5, 5.5, 10.0};
         //List<List<Double>> steps = Sort.selectionSort(getRandomArray(50)).steps();
         //System.out.println(steps);
-        WebSimulation.start(Sort::bubbleSort, 10);
+        WebSimulation.start(Sort::insertionSort, 20);
     }
 
     static void test(){

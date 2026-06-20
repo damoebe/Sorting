@@ -5,13 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d64fe10f-ec72-49f5-8282-e872c613a27a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/example_site/selection/data.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example_site/selection/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example_site/selection/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example_site/selection/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/Sort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/Sort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/WebSimulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/WebSimulation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/SortData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/SortData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/data.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/data.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/damoebe/simulation/site/script.js" afterDir="false" />
@@ -48,28 +49,29 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Node.js.script.js.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Node.js.script.js.executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/marti/Documents/GitHub/Sorting/example_site/selection",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="Sorting" />
@@ -99,7 +101,9 @@
       <workItem from="1781725210071" duration="231000" />
       <workItem from="1781725445408" duration="6627000" />
       <workItem from="1781772396871" duration="6608000" />
-      <workItem from="1781812621574" duration="2403000" />
+      <workItem from="1781812621574" duration="2580000" />
+      <workItem from="1781873204577" duration="599000" />
+      <workItem from="1781977916792" duration="7794000" />
     </task>
     <servers />
   </component>
